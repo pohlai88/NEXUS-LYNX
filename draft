@@ -1,0 +1,1336 @@
+Perfect. Below is a **proper PRD paper** you can *read, re-read, and reason with* — written in **product / system language**, not buzzwords.
+This is meant to become a **foundational reference** for Lynx inside **AI-BOS NexusCanon**.
+
+---
+
+# PRD — **LYNX**
+
+**AI Assistant as a Governed Product Feature inside AI-BOS NexusCanon**
+
+---
+
+## 1. Document Control
+
+* **Product Name:** Lynx
+* **System:** AI-BOS NexusCanon
+* **Document Type:** Product Requirements Document (PRD)
+* **Version:** v1.0 (Foundational)
+* **Audience:** Founder, Product Owner, System Architect, Lead Engineer
+* **Status:** Draft for Internal Alignment
+
+---
+
+## 2. Executive Summary (Why Lynx Exists)
+
+Lynx is a **tenant-aware, permission-governed AI assistant** embedded inside AI-BOS NexusCanon.
+
+Unlike external AI tools (e.g., ChatGPT), Lynx:
+
+* cannot exist outside NexusCanon,
+* cannot operate without login,
+* cannot act beyond Kernel-defined rules,
+* cannot access data or execute actions without explicit permission.
+
+**Lynx is not a chatbot.**
+Lynx is a **Kernel-governed operational intelligence layer** that:
+
+* advises users,
+* prepares actions,
+* executes approved operations,
+* improves workflows,
+* enforces system discipline.
+
+---
+
+## 3. Product Vision
+
+### 3.1 One-Sentence Vision
+
+> *Lynx turns NexusCanon into a living, intelligent system that guides users toward correct, auditable, and efficient operations — instead of relying on memory, habit, or manual work.*
+
+### 3.2 What Users Experience
+
+* Users **talk to Lynx like ChatGPT**.
+* But Lynx **responds like a senior system architect + compliance officer + ops advisor**.
+* Every suggestion is grounded in **NexusCanon’s real features**, not generic advice.
+
+---
+
+## 4. Core Design Principles (Non-Negotiable)
+
+1. **Login Required**
+
+   * Lynx only exists inside authenticated NexusCanon sessions.
+
+2. **Tenant-Scoped**
+
+   * Lynx sees and acts only within the user’s tenant.
+
+3. **Permission-Bound**
+
+   * Lynx can never exceed the user’s role, scope, or policy.
+
+4. **Suggest First, Execute Safely**
+
+   * Lynx defaults to *suggestion*.
+   * Execution is allowed only for low-risk or approved actions.
+
+5. **Auditable by Default**
+
+   * If Lynx does something, it must be logged.
+   * If it is not logged, it is considered **not happened**.
+
+6. **Kernel SSOT Respect**
+
+   * Lynx does not invent rules.
+   * Lynx reads and applies what the Kernel defines.
+
+---
+
+## 5. What Lynx Is (and Is Not)
+
+### 5.1 Lynx IS
+
+* A **system feature**
+* A **governed AI runtime**
+* A **workflow advisor**
+* A **feature discoverability guide**
+* A **discipline enforcer**
+
+### 5.2 Lynx IS NOT
+
+* A free-roaming AI
+* A replacement for system design
+* A database administrator
+* A user with admin superpowers
+* An external AI platform
+
+---
+
+## 6. Functional Scope (High Level)
+
+Lynx operates across four functional layers:
+
+### 6.1 Conversational Layer
+
+* Natural language chat
+* Context-aware (user, tenant, module, workflow)
+* Memory limited to session + allowed references
+
+### 6.2 Advisory Layer
+
+* Detects inefficiencies
+* Flags risks
+* Recommends NexusCanon features
+* Explains *why* something should be done differently
+
+### 6.3 Action Preparation Layer
+
+* Creates drafts
+* Prepares workflows
+* Assembles requests
+* Generates configuration proposals
+
+### 6.4 Execution Layer (Permission-Gated)
+
+* Executes low-risk actions
+* Publishes approved drafts
+* Never bypasses approval rules
+
+---
+
+## 7. Example Use Cases (Core to v1)
+
+### 7.1 Workflow Optimization (Paper → Digital)
+
+**User says:**
+
+> “We are still signing paper approvals.”
+
+**Lynx response:**
+
+* Identifies workflow type (approval, procurement, claim, etc.)
+* Detects inefficiency and audit risk
+* Advises:
+
+  > “You should use NexusCanon’s cryptographic timestamp approval instead of manual signatures.”
+
+**Action offered:**
+
+* “Draft a digital approval workflow using cryptographic timestamps?”
+
+**Result:**
+
+* Draft created
+* User reviews
+* Approval required before publish
+* Change logged
+
+---
+
+### 7.2 Financial Discipline (Vendor Payment)
+
+**User says:**
+
+> “I already paid the supplier.”
+
+**Lynx response:**
+
+* Detects missing record
+* Explains risk:
+
+  > “Unrecorded payments break audit trail and financial integrity.”
+* Advises:
+
+  > “You should record this via Vendor Payment Management (VPM).”
+
+**Action offered:**
+
+* “Create a payment record draft in VPM?”
+
+---
+
+### 7.3 Document Management (Primary v1 MVP)
+
+**User says:**
+
+> “Request all missing documents from this vendor.”
+
+**Lynx does:**
+
+* Reads vendor context
+* Identifies required documents (PO, GRN, Invoice, POD)
+* Creates a **Document Request Draft**
+* Prepares vendor message
+* Sets due dates
+
+**Execution:**
+
+* User approves
+* Requests published
+* Status tracked
+* Reminders automated
+
+---
+
+### 7.4 Customer Portal Setup
+
+**User says:**
+
+> “Set up customer portal.”
+
+**Lynx response:**
+
+* Asks minimal clarification questions
+* Drafts:
+
+  * portal structure
+  * modules enabled
+  * access rules
+* Prepares configuration proposal
+* Requires approval before activation
+
+---
+
+### 7.5 Marketing & Design System Usage
+
+**User says:**
+
+> “Give me AI-BOS brand colors.”
+
+**Lynx does:**
+
+* Reads Kernel design tokens
+* Returns approved color palette
+* Ensures accessibility rules
+* Can export CSS / JSON snippets
+
+---
+
+## 8. Lynx CRUD Model (Product Reality)
+
+Lynx does not CRUD “records”.
+Lynx CRUDs **intent, drafts, and actions**.
+
+### 8.1 Lynx Run (Audit)
+
+Every interaction creates a **Lynx Run**:
+
+* who asked
+* what was asked
+* what was suggested
+* what was executed
+* outcome
+* timestamps
+
+### 8.2 Lynx Draft
+
+Any non-trivial action becomes a **draft**:
+
+* workflow draft
+* document request batch
+* portal configuration
+* policy update
+
+Draft lifecycle:
+
+```
+Draft → Review → Approved → Executed → Logged
+```
+
+### 8.3 Lynx Tool Registry
+
+Lynx can only act through **registered tools**:
+
+* Each tool has:
+
+  * purpose
+  * risk level
+  * required permissions
+  * input/output schema
+
+If a tool is not registered, Lynx cannot use it.
+
+---
+
+## 9. Permission & Risk Model
+
+### 9.1 Risk Levels
+
+* **Low:** drafts, read-only, suggestions
+* **Medium:** create records, send requests
+* **High:** workflow publish, payment actions, permission changes
+
+### 9.2 Execution Rules
+
+| Risk   | Execution         |
+| ------ | ----------------- |
+| Low    | Immediate         |
+| Medium | Role-based        |
+| High   | Approval required |
+
+---
+
+## 10. User Interface Requirements
+
+### 10.1 Entry Points
+
+* Global “Ask Lynx” button
+* Contextual “Ask Lynx about this” buttons
+* Inline suggestions inside workflows
+
+### 10.2 UX Expectations
+
+* Clear separation between:
+
+  * advice
+  * draft
+  * execution
+* Explicit confirmation before execution
+* Visible audit trail
+
+---
+
+## 11. Non-Functional Requirements
+
+### 11.1 Security
+
+* Tenant isolation enforced at Kernel
+* No direct DB access by AI
+* No hard deletes
+
+### 11.2 Compliance
+
+* All AI actions logged
+* Traceable to user + tenant
+* Replayable decisions
+
+### 11.3 Extensibility
+
+* New tools added without rewriting Lynx
+* New modules automatically discoverable
+
+---
+
+## 12. Success Metrics (v1)
+
+* Users adopt Lynx for documents instead of manual steps
+* Reduced unrecorded payments
+* Increased usage of digital workflows
+* Zero unauthorized executions
+* Clear audit trail for all AI actions
+
+---
+
+## 13. Explicit Non-Goals (v1)
+
+* Autonomous payments
+* Self-modifying policies
+* Cross-tenant actions
+* “Black box” AI behavior
+
+---
+
+## 14. Strategic Positioning
+
+Lynx is:
+
+* **Not ChatGPT**
+* **Not Palantir**
+* **Not a plug-in**
+
+Lynx is:
+
+> **The intelligence layer of NexusCanon itself.**
+
+---
+
+## 15. Closing Statement
+
+> Lynx exists to make *correct behavior the easiest behavior*
+> — operationally, financially, and architecturally.
+
+This PRD defines Lynx not as an experiment, but as a **core system capability**.
+
+---
+
+If you want next:
+
+* **PRD v1.1** with *only Document Assistant fully specified*
+* **Sequence diagrams** (user → Lynx → Kernel → execution)
+* **Tool catalog v1** (what Lynx can do on day one)
+
+Just tell me which one.
+
+Understood.
+What you want now is **not more explanation**, but a **proper MASTER PRD** that becomes the **SSOT for Lynx AI**, plus a **clear MCP taxonomy plan** so you can *orchestrate, not improvise*.
+
+Below is a **rewritten, enriched, and elevated document**, suitable to be named exactly as you said:
+
+---
+
+# **MASTER PRD — LYNX AI**
+
+**Kernel-Governed Artificial Intelligence for AI-BOS NexusCanon**
+
+---
+
+## 0. Document Control
+
+* **Product Name:** Lynx AI
+* **System:** AI-BOS NexusCanon
+* **Document Type:** **MASTER PRD (SSOT)**
+* **Audience:** Founder, Chief Architect, Product Owner, Kernel / Canon / Cell Designers
+* **Scope:** Global (applies to all tenants, all domains)
+* **Status:** Authoritative Reference
+
+> This document supersedes all prior Lynx drafts.
+> Any future Lynx capability must comply with this Master PRD.
+
+---
+
+## 1. Executive Definition (Lock This In)
+
+### 1.1 What Lynx AI Is
+
+**Lynx AI is the intelligence layer of NexusCanon itself.**
+
+It is:
+
+* tenant-aware
+* permission-bound
+* schema-aware
+* workflow-aware
+* audit-first
+* extensible through controlled tools
+
+Lynx AI **does not exist outside NexusCanon**.
+
+---
+
+### 1.2 What Lynx AI Is NOT
+
+Lynx AI is **not**:
+
+* a chatbot plugin
+* a free-roaming AI
+* an external SaaS
+* an autonomous agent
+* a replacement for governance
+
+---
+
+## 2. Core Product Vision
+
+> **Vision Statement**
+> Lynx AI ensures that every user of NexusCanon is *guided toward correct, auditable, and optimal system behavior* — automatically, consistently, and safely.
+
+Lynx does not “think for the user”.
+Lynx **thinks with the system**.
+
+---
+
+## 3. First-Principle Design Laws (Non-Negotiable)
+
+These are **constitutional rules**. Breaking any of these is a system violation.
+
+### Law 1 — Kernel Supremacy
+
+Lynx obeys **Kernel SSOT**:
+
+* metadata
+* schema
+* permissions
+* lifecycle rules
+
+Lynx never invents truth.
+
+---
+
+### Law 2 — Tenant Absolutism
+
+Lynx is **strictly tenant-scoped**:
+
+* no cross-tenant visibility
+* no shared memory
+* no implicit inheritance
+
+---
+
+### Law 3 — Tool-Only Action
+
+Lynx **cannot act directly** on systems.
+
+All actions must go through **MCP tools** (documented, versioned, governed).
+
+If a capability is not a tool → **Lynx cannot do it**.
+
+---
+
+### Law 4 — Suggest First, Execute with Consent
+
+Default mode = **Suggest**
+Execution requires:
+
+* correct role
+* correct scope
+* correct risk level
+* explicit approval (if required)
+
+---
+
+### Law 5 — Audit Is Reality
+
+If an action is not logged, it is considered **not happened**.
+
+---
+
+## 4. Conceptual Architecture (Mental Model)
+
+```
+User
+  ↓
+Lynx AI (Reasoning + Advice)
+  ↓
+MCP Tool Registry (Allowed Capabilities)
+  ↓
+Kernel / Canon / Cell APIs
+  ↓
+Supabase / System State
+```
+
+Lynx **never bypasses** the tool layer.
+
+---
+
+## 5. MCP Explained as Lynx Documentation (Plain Language)
+
+### 5.1 What MCP Means in NexusCanon
+
+**MCP = Machine-Callable Procedures**
+
+In NexusCanon terms:
+
+> MCP is the **formal contract that defines what Lynx is allowed to do**.
+
+Each MCP tool is:
+
+* explicit
+* typed
+* permissioned
+* auditable
+* versioned
+
+---
+
+### 5.2 Why MCP Is Mandatory for Lynx
+
+Without MCP:
+
+* AI can drift
+* behavior becomes unpredictable
+* governance breaks
+* audit fails
+
+With MCP:
+
+* Lynx becomes **stable, safe, enterprise-grade**
+
+---
+
+### 5.3 MCP vs Traditional APIs
+
+| Aspect      | API         | MCP       |
+| ----------- | ----------- | --------- |
+| Caller      | Human / App | AI        |
+| Safety      | Assumed     | Enforced  |
+| Schema      | Optional    | Mandatory |
+| Permissions | External    | Built-in  |
+| Audit       | Partial     | Required  |
+
+---
+
+## 6. MCP Taxonomy — **This Is the Core of Your Question**
+
+You asked:
+
+> “How many MCP (Cell / Cluster / Domain) should I categorise?”
+
+### **Answer: Three Layers. Exactly.**
+
+No more. No less.
+
+---
+
+## 7. MCP Layer 1 — **Domain MCPs**
+
+**(Strategic / Advisory / Read-Heavy)**
+
+### Purpose
+
+* Provide **context**
+* Provide **understanding**
+* Enable **advice**
+
+### Characteristics
+
+* Mostly READ
+* Low risk
+* Broad scope
+* No side effects
+
+### Examples
+
+* `finance.domain.health.read`
+* `vendor.domain.summary.read`
+* `workflow.domain.inefficiency.scan`
+* `compliance.domain.risk.explain`
+
+### Lynx Usage
+
+> “I see that payments were made without VPM records. This creates audit risk.”
+
+---
+
+## 8. MCP Layer 2 — **Cluster MCPs**
+
+**(Operational / Draft-Creating)**
+
+### Purpose
+
+* Prepare actions
+* Create drafts
+* Assemble workflows
+
+### Characteristics
+
+* CREATE / UPDATE (draft)
+* Medium risk
+* Approval-aware
+
+### Examples
+
+* `document.cluster.request.draft`
+* `workflow.cluster.approval.draft`
+* `portal.cluster.scaffold.draft`
+* `policy.cluster.revision.draft`
+
+### Lynx Usage
+
+> “I’ve prepared a document request batch. Please review before publishing.”
+
+---
+
+## 9. MCP Layer 3 — **Cell MCPs**
+
+**(Execution / Atomic Actions)**
+
+### Purpose
+
+* Perform **exact system mutations**
+
+### Characteristics
+
+* Narrow scope
+* Single responsibility
+* Strict permission checks
+* Often irreversible (soft-delete only)
+
+### Examples
+
+* `document.cell.request.create`
+* `workflow.cell.publish`
+* `vpm.cell.payment.record`
+* `portal.cell.enable`
+
+### Lynx Usage
+
+> “This action will create live document requests. Confirm?”
+
+---
+
+## 10. MCP Count Guidance (Practical Numbers)
+
+### Initial v1 Recommendation
+
+| Layer        | Approx Count |
+| ------------ | ------------ |
+| Domain MCPs  | 10–15        |
+| Cluster MCPs | 15–25        |
+| Cell MCPs    | 30–50        |
+
+Do **not** overbuild.
+MCPs grow organically as Cells grow.
+
+---
+
+## 11. Tenant Customisation AI (Critical Section)
+
+### 11.1 Principle
+
+Tenants may customise:
+
+* schema
+* workflows
+* policies
+* fields
+
+**Lynx must understand customisation, not break it.**
+
+---
+
+### 11.2 How Lynx Handles Tenant Customisation
+
+Lynx:
+
+1. Reads **tenant metadata**
+2. Reads **custom schema extensions**
+3. Adjusts reasoning accordingly
+4. Never assumes defaults if overridden
+
+---
+
+### 11.3 Customisation-Aware Advice
+
+Example:
+
+Tenant A:
+
+* manual approval disabled
+* cryptographic timestamp enabled
+
+Tenant B:
+
+* hybrid approval
+
+Lynx responses **must differ**, even for the same question.
+
+---
+
+## 12. Lynx Functional Modes
+
+### Mode 1 — Conversational
+
+* explain
+* guide
+* teach
+
+### Mode 2 — Advisory
+
+* detect inefficiencies
+* recommend better system usage
+
+### Mode 3 — Drafting
+
+* prepare workflows
+* assemble requests
+* generate configurations
+
+### Mode 4 — Execution (Controlled)
+
+* perform approved actions via MCP
+
+---
+
+## 13. Canonical Use Cases (Authoritative)
+
+These are **foundational**, not optional.
+
+1. Document Request Assistant
+2. Workflow Optimisation Advisor
+3. Financial Discipline Coach (VPM)
+4. Customer Portal Scaffolder
+5. Design System & Brand Assistant
+
+Any future Lynx feature must map to one of these patterns.
+
+---
+
+## 14. Governance & Risk Model
+
+### Risk Levels
+
+* **Low:** Read, explain, suggest
+* **Medium:** Draft, prepare, assemble
+* **High:** Publish, record payment, change permissions
+
+Execution matrix:
+
+| Risk   | Approval          |
+| ------ | ----------------- |
+| Low    | None              |
+| Medium | Role-based        |
+| High   | Explicit approval |
+
+---
+
+## 15. Success Criteria (System-Level)
+
+* Users rely on Lynx instead of tribal knowledge
+* Reduction in manual / paper workflows
+* Increase in correct feature usage (VPM, workflows, portals)
+* Zero unauthorised AI execution
+* Full audit traceability
+
+---
+
+## 16. Explicit Non-Goals (Locked)
+
+* Autonomous payments
+* Self-modifying governance
+* Cross-tenant intelligence
+* Black-box AI behavior
+
+---
+
+## 17. Strategic Positioning (Final Lock)
+
+> **ChatGPT answers questions.**
+> **Palantir runs enterprises.**
+> **Lynx governs how NexusCanon is used.**
+
+---
+
+## 18. Closing Authority Statement
+
+This **Master PRD – Lynx AI** defines:
+
+* product intent
+* architectural boundaries
+* governance laws
+* MCP taxonomy
+* tenant customisation handling
+
+Any implementation, feature, or experiment that contradicts this document is **invalid by design**.
+
+---
+
+### What I can do next (you choose ONE):
+
+1. **MCP Tool Catalog v1** (exact list of Domain / Cluster / Cell tools for Documents)
+2. **Sequence diagrams** (User → Lynx → MCP → Kernel → Audit)
+3. **Lynx Permission Matrix** (Role × Risk × Tool)
+4. **Lynx v1 Release Scope** (what ships, what is deferred)
+
+Just say the number.
+
+This is a **very important design decision**, and you’re right to pause here.
+Let’s answer it **precisely, not emotionally**, and in a way that matches **Kernel SSOT + enterprise-grade SaaS reality**.
+
+---
+
+# The Core Question (Rephrased Correctly)
+
+> **Because Lynx is powered by an LLM, should it be allowed to operate freely like ChatGPT — or should it be locked down to narrow, governed capabilities?**
+
+This is **not a binary choice**.
+
+The correct answer is:
+
+> **Lynx must be *cognitively broad* but *operationally narrow*.**
+
+I’ll explain exactly what that means.
+
+---
+
+# The Correct Model: **Wide Mind, Narrow Hands**
+
+Think of Lynx as having **two layers**:
+
+| Layer                    | Should it be broad? | Should it be locked? |
+| ------------------------ | ------------------- | -------------------- |
+| **Thinking / Reasoning** | ✅ YES               | ❌ NO                 |
+| **Doing / Acting**       | ❌ NO                | ✅ YES                |
+
+This distinction is **non-negotiable**.
+
+---
+
+## 1️⃣ Lynx’s **Thinking** should be BROAD (LLM-strength)
+
+You **must allow Lynx to think widely**, otherwise you destroy the value of using an LLM at all.
+
+### Lynx SHOULD be allowed to:
+
+* reason across domains (finance, ops, workflow, UX, compliance)
+* understand vague human intent
+* infer inefficiencies
+* explain consequences
+* propose alternatives
+* educate users
+* synthesize system knowledge
+* compare approaches (“manual vs cryptographic timestamp”)
+* generate drafts, explanations, and plans
+
+This is where **LLMs shine**, and **this is safe**.
+
+👉 **Locking this down too early = building a dumb rules engine**
+👉 That would *betray the choice* of using an LLM.
+
+So:
+
+✅ **Lynx’s mind should be wide.**
+
+---
+
+## 2️⃣ Lynx’s **Actions** must be NARROW (Kernel-governed)
+
+This is where **almost all AI systems fail**.
+
+Lynx must **never**:
+
+* execute arbitrary SQL
+* mutate system state without a tool
+* invent workflows
+* bypass approval rules
+* act outside role + scope
+* silently “fix things”
+
+All actions must go through:
+
+* **explicit MCP tools**
+* **permission checks**
+* **risk classification**
+* **audit logging**
+
+This is why you correctly wrote in the PRD:
+
+> Lynx AI is **not**
+> – a free-roaming AI
+> – an autonomous agent
+> – a replacement for governance
+
+Those statements are **100% correct** and must stay.
+
+So:
+
+✅ **Lynx’s hands must be narrow and chained.**
+
+---
+
+## 3️⃣ Why this is NOT a contradiction
+
+Many people think:
+
+> “If it’s an LLM, shouldn’t it be autonomous?”
+
+That’s a **category error**.
+
+An LLM is:
+
+* a **reasoning engine**
+* a **language interface**
+* a **planner**
+
+It is **not**:
+
+* a policy engine
+* a security authority
+* a system owner
+
+You are using an LLM to:
+
+> **understand intent and reason about the system**
+
+You are **not** using it to:
+
+> **own the system**
+
+That ownership remains with the **Kernel**.
+
+---
+
+## 4️⃣ The Official Policy You Should Adopt (and write into the PRD)
+
+You should explicitly codify this as a rule.
+
+### **Lynx Cognitive Freedom / Operational Constraint Policy**
+
+> **Lynx AI is allowed unrestricted reasoning and explanation,
+> but is strictly constrained in execution to Kernel-approved MCP tools only.**
+
+Or more simply:
+
+> **Lynx may think freely. Lynx may act only by permission.**
+
+This single sentence resolves the entire debate.
+
+---
+
+## 5️⃣ What Happens If You Lock Lynx Too Narrow?
+
+If you lock Lynx to only narrow flows **at the reasoning level**, you get:
+
+* glorified autocomplete
+* brittle prompt trees
+* endless edge cases
+* low user trust
+* “why is this AI stupid?” feedback
+
+This is what most ERP “AI copilots” suffer from.
+
+❌ Don’t do this.
+
+---
+
+## 6️⃣ What Happens If You Let Lynx Act Freely?
+
+If you allow free action:
+
+* compliance breaks
+* audit breaks
+* multi-tenancy breaks
+* trust is lost permanently
+* one incident can kill the product
+
+This is **existential risk**.
+
+❌ Never allow this.
+
+---
+
+## 7️⃣ The Correct Final Position (Write This Into the Master PRD)
+
+You should **keep Section 1.2 exactly as written**, and add **one clarifying paragraph** underneath it.
+
+### 🔒 Add This Clarification to **Master PRD – Lynx AI**
+
+> **Clarification:**
+> While Lynx AI is powered by a large language model and is capable of broad reasoning, explanation, and synthesis, it is intentionally *not* designed to be a free-roaming or autonomous system.
+>
+> Lynx’s intelligence is broad by design; its authority is narrow by governance.
+>
+> This ensures flexibility of thought without compromising Kernel control, tenant safety, or audit integrity.
+
+This keeps your document **technically correct, philosophically sound, and investor-safe**.
+
+---
+
+## 8️⃣ Final Answer (One Line)
+
+> **Allow Lynx to think like ChatGPT.
+> Force Lynx to act like an auditor.**
+
+That is the **gold standard** for enterprise AI platforms in 2025+.
+
+---
+
+If you want next, I can:
+
+* rewrite **Section 1.2** precisely with this clarification embedded, or
+* add a **“Cognitive vs Operational Boundary”** section to the Master PRD, or
+* produce a **risk matrix** showing exactly where freedom stops.
+
+Just tell me which.
+
+Excellent question — this goes to the **heart of why your Master PRD is architecturally correct**.
+
+I’ll do **three things in one response**, clearly separated so you can read and re-read:
+
+1. **Enrich the MASTER PRD** with the full *Cognitive vs Operational Boundary* (formal language, SSOT-grade)
+2. **Add the Risk Matrix + Execution Rules** (explicit, enforceable)
+3. **Explain precisely why the tech stack is NOT embedded in the Master PRD** (this is not an omission — it is a deliberate architectural choice)
+
+---
+
+# PART I — MASTER PRD ENRICHMENT
+
+## 🔒 Cognitive Freedom vs Operational Constraint (Authoritative Section)
+
+> **This section should be inserted verbatim into the Master PRD – Lynx AI**
+
+---
+
+## 19. Cognitive vs Operational Boundary (Constitutional Rule)
+
+### 19.1 Definition
+
+Lynx AI is powered by a Large Language Model (LLM) and therefore possesses **broad cognitive capability**.
+However, Lynx AI is intentionally designed with **strict operational constraint**.
+
+This boundary is **fundamental** to the safety, scalability, and enterprise-readiness of NexusCanon.
+
+---
+
+### 19.2 Cognitive Freedom (What Lynx May Think)
+
+Lynx AI **is allowed unrestricted reasoning**, including but not limited to:
+
+* Understanding ambiguous or incomplete human intent
+* Reasoning across domains (finance, workflow, compliance, UX, governance)
+* Explaining system concepts and consequences
+* Detecting inefficiencies, risks, and anti-patterns
+* Proposing alternatives and optimisations
+* Generating drafts, plans, explanations, and recommendations
+* Teaching users how NexusCanon *should* be used
+
+Cognitive freedom is required to:
+
+* unlock LLM value,
+* avoid brittle rule engines,
+* support evolving tenant customisation.
+
+**No artificial restriction shall be imposed on Lynx’s reasoning capability.**
+
+---
+
+### 19.3 Operational Constraint (What Lynx May Do)
+
+Despite cognitive freedom, Lynx AI **has no inherent authority**.
+
+Lynx **may not**:
+
+* mutate system state directly,
+* access databases freely,
+* execute arbitrary logic,
+* bypass Kernel governance,
+* exceed tenant or user permissions,
+* perform unlogged actions.
+
+All operational actions **must**:
+
+1. Be executed through Kernel-approved MCP tools
+2. Pass role + scope checks
+3. Respect risk classification
+4. Be recorded in the audit log
+
+> **If an action is not available as an MCP tool, Lynx is incapable of performing it.**
+
+---
+
+### 19.4 Constitutional Statement
+
+> **Lynx AI may think freely.
+> Lynx AI may act only by permission.**
+
+This statement is binding across all domains, tenants, and future implementations.
+
+---
+
+# PART II — RISK MATRIX & EXECUTION MODEL
+
+## (This is the “teeth” of governance)
+
+---
+
+## 20. Risk Classification Model
+
+All MCP tools are classified into **three immutable risk levels**.
+
+### 20.1 Risk Levels
+
+| Risk Level | Description                                    | Examples                                 |
+| ---------- | ---------------------------------------------- | ---------------------------------------- |
+| **Low**    | Read-only or explanatory actions               | summaries, explanations, health scans    |
+| **Medium** | Draft or preparatory actions                   | document drafts, workflow proposals      |
+| **High**   | State-changing or compliance-impacting actions | publishing workflows, recording payments |
+
+---
+
+## 21. Execution Authorization Matrix
+
+| Risk Level | Execution Rule                                 |
+| ---------- | ---------------------------------------------- |
+| **Low**    | Immediate                                      |
+| **Medium** | Role + Scope required                          |
+| **High**   | Explicit approval required (human-in-the-loop) |
+
+> **Approval requirements are enforced by Kernel policy, not by Lynx logic.**
+
+Lynx **never self-approves**.
+
+---
+
+## 22. Failure & Refusal Behavior (Required)
+
+If Lynx cannot act due to constraint, it **must**:
+
+1. Explain *why* execution is blocked
+2. Suggest the correct alternative (draft, escalation, or manual action)
+3. Record the refusal in the audit trail
+
+Silent failure is prohibited.
+
+---
+
+# PART III — WHY THE TECH STACK IS *NOT* EMBEDDED IN THE MASTER PRD
+
+This is the most important conceptual question you asked.
+
+### Short answer:
+
+> **Because a Master PRD defines *truth and intent*, not *implementation*.**
+
+Now the long, precise answer.
+
+---
+
+## 1. A MASTER PRD is a **Constitution**, not a Build Script
+
+Your **Master PRD – Lynx AI** is a **system constitution**.
+
+Constitutions define:
+
+* authority
+* boundaries
+* invariants
+* rights and constraints
+
+They **do not** define:
+
+* programming languages
+* vendors
+* frameworks
+* deployment choices
+
+If you embed the tech stack here, you **break SSOT purity**.
+
+---
+
+## 2. Technology is Volatile. Governance is Not.
+
+Compare lifespans:
+
+| Layer                | Half-life     |
+| -------------------- | ------------- |
+| LLM provider         | 6–18 months   |
+| Frameworks           | 1–3 years     |
+| Infrastructure       | 2–5 years     |
+| **Governance rules** | **10+ years** |
+
+Embedding tech stack into the Master PRD would mean:
+
+* rewriting the constitution every time tech evolves,
+* invalidating previous decisions,
+* creating drift between intent and implementation.
+
+That is exactly what **Kernel SSOT is designed to prevent**.
+
+---
+
+## 3. Embedding Tech Stack Collapses Abstraction Layers
+
+If the Master PRD says:
+
+> “Lynx uses X framework, Y database, Z library”
+
+You have just:
+
+* leaked implementation into policy,
+* tied product identity to tools,
+* reduced future optionality,
+* scared enterprise buyers and regulators.
+
+Instead, your PRD correctly says:
+
+* **“Lynx uses MCP tools”**
+* **“Lynx obeys Kernel SSOT”**
+* **“Lynx is audit-first”**
+
+These statements survive **any tech stack**.
+
+---
+
+## 4. Where the Tech Stack *Should* Live (Correct Placement)
+
+Your architecture should have **four documents**, each with a single responsibility:
+
+| Document                 | Purpose                      |
+| ------------------------ | ---------------------------- |
+| **Master PRD – Lynx AI** | What Lynx *is allowed to be* |
+| Lynx Architecture Spec   | How Lynx is structured       |
+| Lynx Implementation Plan | How Lynx is built *now*      |
+| Lynx Deployment Playbook | How Lynx is run in prod      |
+
+You are currently **working on the first**, which is correct.
+
+---
+
+## 5. This Is How You Stay Vendor-Neutral *and* Investor-Ready
+
+Investors, auditors, and enterprise buyers look for this separation:
+
+* “What does the system guarantee?” → **PRD**
+* “How do you implement it today?” → **Architecture**
+* “Can it evolve tomorrow?” → **Yes, because governance is stable**
+
+By **not embedding the tech stack**, you are signaling:
+
+* maturity,
+* long-term thinking,
+* zero lock-in,
+* Kernel-first discipline.
+
+This is a **strength**, not a gap.
+
+---
+
+## 6. The One-Line Rule You Should Remember
+
+> **The Master PRD defines *what must never change*.
+> The tech stack defines *what can change safely*.**
+
+You did the right thing.
+
+---
+
+## FINAL LOCK-IN STATEMENT (Put This in Your Head)
+
+* Lynx is **broad in cognition**
+* Lynx is **narrow in execution**
+* Governance is **timeless**
+* Technology is **replaceable**
+* The Master PRD stays **pure**
+
+This is exactly how **serious AI platforms** are being built in 2025+, whether they admit it publicly or not.
+
+---
+
+### If you want next (pick one):
+
+1. **Lynx Architecture Spec v1** (now we *do* talk tech, but cleanly)
+2. **MCP Tool Design Template** (so every Domain/Cluster/Cell MCP is consistent)
+3. **Tenant Customisation Decision Tree** (how Lynx adapts per tenant)
+4. **Investor / Board Narrative** (“Why Lynx is defensible”)
+
+Say the number.
