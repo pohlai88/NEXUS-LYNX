@@ -9,7 +9,7 @@ from typing import Dict, Any, Optional, List
 from datetime import datetime, timedelta
 
 from lynx.config import Config
-from lynx.integration.kernel import KernelAPI
+from lynx.integration.kernel import create_kernel_client
 from supabase import create_client, Client
 from lynx.core.registry import MCPToolRegistry
 from lynx.mcp.server import initialize_mcp_server
@@ -21,11 +21,10 @@ from lynx.mcp.cell.execution.models import ExecutionStatus
 async def check_kernel_reachable() -> bool:
     """Check if Kernel API is reachable."""
     try:
-        if not Config.KERNEL_API_URL:
-            return False
-        # Simple connectivity check (implement actual health check)
-        kernel_api = KernelAPI(tenant_id="test")
+        # Use factory to get Kernel client (handles lite mode)
+        kernel_api = create_kernel_client(tenant_id="test")
         await kernel_api.close()
+        # If we're in lite mode, Kernel is "available" (just not real API)
         return True
     except Exception:
         return False
@@ -182,17 +181,40 @@ async def get_last_n_runs_summary(n: int = 5) -> List[Dict[str, Any]]:
 
 async def get_lynx_status() -> Dict[str, Any]:
     """Get the overall status of Lynx AI."""
-    kernel_reachable = await check_kernel_reachable()
-    supabase_reachable = check_supabase_reachable()
+    try:
+        kernel_reachable = await check_kernel_reachable()
+    except Exception:
+        kernel_reachable = False
+    
+    try:
+        supabase_reachable = check_supabase_reachable()
+    except Exception:
+        supabase_reachable = False
     
     # Initialize a dummy registry to get tool count
-    registry = MCPToolRegistry()
-    initialize_mcp_server(registry)
+    registry = None
+    total_mcp_tools_registered = 0
+    tool_registry_hash = "unknown"
+    try:
+        registry = MCPToolRegistry()
+        initialize_mcp_server(registry)
+        total_mcp_tools_registered = len(registry.list_tools())
+        tool_registry_hash = registry.get_version_hash()
+    except Exception as e:
+        # If MCP initialization fails, continue with 0 tools
+        total_mcp_tools_registered = 0
+        tool_registry_hash = "unknown"
     
-    last_runs_summary = await get_last_n_runs_summary()
+    try:
+        last_runs_summary = await get_last_n_runs_summary()
+    except Exception:
+        last_runs_summary = []
     
     # Get storage backend type
-    backend_type = get_storage_backend_type()
+    try:
+        backend_type = get_storage_backend_type()
+    except Exception:
+        backend_type = "unknown"
     
     # Get counts (only if Supabase is reachable)
     draft_count_24h = 0
@@ -208,19 +230,27 @@ async def get_lynx_status() -> Dict[str, Any]:
             # If counts fail, log but don't fail status check
             print(f"Warning: Could not retrieve counts: {e}", file=__import__('sys').stderr)
     
+    # Get current mode safely
+    try:
+        current_mode = Config.LYNX_MODE.value
+        maintenance_mode = Config.MAINTENANCE_MODE
+    except Exception:
+        current_mode = "unknown"
+        maintenance_mode = False
+    
     return {
         "service_name": "Lynx AI",
         "status": "operational" if kernel_reachable and supabase_reachable else "degraded",
         "lynx_protocol_version": LYNX_PROTOCOL_VERSION,
         "mcp_toolset_version": MCP_TOOLSET_VERSION,
-        "tool_registry_hash": registry.get_version_hash(),
+        "tool_registry_hash": tool_registry_hash,
         "kernel_api_reachable": kernel_reachable,
         "supabase_reachable": supabase_reachable,
         "storage_backend": backend_type,
-        "total_mcp_tools_registered": len(registry.list_tools()),
+        "total_mcp_tools_registered": total_mcp_tools_registered,
         "last_5_runs_summary": last_runs_summary,
-        "current_mode": Config.LYNX_MODE.value,
-        "maintenance_mode": Config.MAINTENANCE_MODE,
+        "current_mode": current_mode,
+        "maintenance_mode": maintenance_mode,
         "draft_count_24h": draft_count_24h,
         "execution_count_24h": execution_count_24h,
         "pending_settlement_count": pending_settlement_count,

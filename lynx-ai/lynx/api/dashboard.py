@@ -34,7 +34,24 @@ app.add_middleware(
 @app.get("/", response_class=HTMLResponse)
 async def dashboard_home():
     """Main dashboard page."""
-    status = await get_lynx_status()
+    try:
+        status = await get_lynx_status()
+    except Exception as e:
+        # Return error page if status check fails
+        status = {
+            "status": "error",
+            "error_message": str(e),
+            "current_mode": "unknown",
+            "maintenance_mode": False,
+            "storage_backend": "unknown",
+            "kernel_api_reachable": False,
+            "supabase_reachable": False,
+            "draft_count_24h": 0,
+            "execution_count_24h": 0,
+            "pending_settlement_count": 0,
+            "total_mcp_tools_registered": 0,
+            "last_runs": [],
+        }
     
     html = f"""
     <!DOCTYPE html>
@@ -158,26 +175,27 @@ async def dashboard_home():
         <div class="container">
             <h1>
                 Lynx AI Dashboard
-                <span class="status-badge status-{status['status']}">
-                    {status['status'].upper()}
+                <span class="status-badge status-{status.get('status', 'error')}">
+                    {status.get('status', 'ERROR').upper()}
                 </span>
             </h1>
             <button class="refresh-btn" onclick="refreshDashboard()">🔄 Refresh</button>
+            {f'<div class="error-banner">⚠️ Error: {status.get("error_message", "Unknown error")}</div>' if status.get('status') == 'error' else ''}
             
             <div class="grid">
                 <div class="card">
                     <h2>System Status</h2>
                     <div class="metric">
                         <span class="metric-label">Mode</span>
-                        <span class="metric-value">{status['current_mode'].upper()}</span>
+                        <span class="metric-value">{status.get('current_mode', 'unknown').upper()}</span>
                     </div>
                     <div class="metric">
                         <span class="metric-label">Maintenance Mode</span>
-                        <span class="metric-value">{'Yes' if status['maintenance_mode'] else 'No'}</span>
+                        <span class="metric-value">{'Yes' if status.get('maintenance_mode', False) else 'No'}</span>
                     </div>
                     <div class="metric">
                         <span class="metric-label">Storage Backend</span>
-                        <span class="metric-value">{status['storage_backend'].upper()}</span>
+                        <span class="metric-value">{status.get('storage_backend', 'unknown').upper()}</span>
                     </div>
                 </div>
                 
@@ -186,13 +204,13 @@ async def dashboard_home():
                     <div class="metric">
                         <span class="metric-label">Kernel API</span>
                         <span class="metric-value">
-                            {'<span class="check">✅</span> Reachable' if status['kernel_api_reachable'] else '<span class="cross">❌</span> Unreachable'}
+                            {'<span class="check">✅</span> Reachable' if status.get('kernel_api_reachable', False) else '<span class="cross">❌</span> Unreachable'}
                         </span>
                     </div>
                     <div class="metric">
                         <span class="metric-label">Supabase</span>
                         <span class="metric-value">
-                            {'<span class="check">✅</span> Reachable' if status['supabase_reachable'] else '<span class="cross">❌</span> Unreachable'}
+                            {'<span class="check">✅</span> Reachable' if status.get('supabase_reachable', False) else '<span class="cross">❌</span> Unreachable'}
                         </span>
                     </div>
                 </div>
@@ -201,15 +219,15 @@ async def dashboard_home():
                     <h2>Versions</h2>
                     <div class="metric">
                         <span class="metric-label">Protocol Version</span>
-                        <span class="metric-value">{status['lynx_protocol_version']}</span>
+                        <span class="metric-value">{status.get('lynx_protocol_version', 'unknown')}</span>
                     </div>
                     <div class="metric">
                         <span class="metric-label">Toolset Version</span>
-                        <span class="metric-value">{status['mcp_toolset_version']}</span>
+                        <span class="metric-value">{status.get('mcp_toolset_version', 'unknown')}</span>
                     </div>
                     <div class="metric">
                         <span class="metric-label">Tools Registered</span>
-                        <span class="metric-value">{status['total_mcp_tools_registered']}</span>
+                        <span class="metric-value">{status.get('total_mcp_tools_registered', 0)}</span>
                     </div>
                 </div>
                 
@@ -217,15 +235,15 @@ async def dashboard_home():
                     <h2>Activity (24h)</h2>
                     <div class="metric">
                         <span class="metric-label">Drafts</span>
-                        <span class="metric-value">{status['draft_count_24h']}</span>
+                        <span class="metric-value">{status.get('draft_count_24h', 0)}</span>
                     </div>
                     <div class="metric">
                         <span class="metric-label">Executions</span>
-                        <span class="metric-value">{status['execution_count_24h']}</span>
+                        <span class="metric-value">{status.get('execution_count_24h', 0)}</span>
                     </div>
                     <div class="metric">
                         <span class="metric-label">Pending Settlements</span>
-                        <span class="metric-value">{status['pending_settlement_count']}</span>
+                        <span class="metric-value">{status.get('pending_settlement_count', 0)}</span>
                     </div>
                 </div>
             </div>
@@ -234,11 +252,11 @@ async def dashboard_home():
                 <h2>Recent Runs (Last 5)</h2>
                 {"<ul style='list-style: none; padding: 0;'>" + "".join([
                     f"<li style='padding: 10px 0; border-bottom: 1px solid #333;'>"
-                    f"<strong>{run['tool_id']}</strong> - {run['status'].upper()} "
-                    f"<span style='color: #666;'>({run['created_at']})</span>"
+                    f"<strong>{run.get('tool_id', 'unknown')}</strong> - {run.get('status', 'unknown').upper()} "
+                    f"<span style='color: #666;'>({run.get('created_at', 'unknown')})</span>"
                     f"</li>"
-                    for run in status['last_5_runs_summary']
-                ]) + "</ul>" if status['last_5_runs_summary'] else "<p style='color: #666;'>No recent runs</p>"}
+                    for run in status.get('last_5_runs_summary', [])
+                ]) + "</ul>" if status.get('last_5_runs_summary') else "<p style='color: #666;'>No recent runs</p>"}
             </div>
             
             <div class="footer">
@@ -258,7 +276,7 @@ async def health_check():
     try:
         status = await get_lynx_status()
         return {
-            "status": status['status'],
+            "status": status.get('status', 'degraded'),
             "service": "lynx-ai",
             "version": LYNX_PROTOCOL_VERSION,
             "timestamp": datetime.now().isoformat(),
@@ -277,22 +295,44 @@ async def health_check():
 @app.get("/api/status")
 async def api_status():
     """JSON API endpoint for status."""
-    status = await get_lynx_status()
-    return status
+    try:
+        status = await get_lynx_status()
+        return status
+    except Exception as e:
+        # Return error status if check fails
+        return {
+            "status": "error",
+            "error": str(e),
+            "service": "lynx-ai",
+            "version": LYNX_PROTOCOL_VERSION,
+            "timestamp": datetime.now().isoformat(),
+        }
 
 
 @app.get("/api/metrics")
 async def api_metrics():
     """Metrics endpoint (for Prometheus integration in future)."""
-    status = await get_lynx_status()
-    return {
-        "drafts_24h": status['draft_count_24h'],
-        "executions_24h": status['execution_count_24h'],
-        "pending_settlements": status['pending_settlement_count'],
-        "tools_registered": status['total_mcp_tools_registered'],
-        "kernel_reachable": 1 if status['kernel_api_reachable'] else 0,
-        "supabase_reachable": 1 if status['supabase_reachable'] else 0,
-    }
+    try:
+        status = await get_lynx_status()
+        return {
+            "drafts_24h": status.get('draft_count_24h', 0),
+            "executions_24h": status.get('execution_count_24h', 0),
+            "pending_settlements": status.get('pending_settlement_count', 0),
+            "tools_registered": status.get('total_mcp_tools_registered', 0),
+            "kernel_reachable": 1 if status.get('kernel_api_reachable', False) else 0,
+            "supabase_reachable": 1 if status.get('supabase_reachable', False) else 0,
+        }
+    except Exception as e:
+        # Return zero metrics on error
+        return {
+            "drafts_24h": 0,
+            "executions_24h": 0,
+            "pending_settlements": 0,
+            "tools_registered": 0,
+            "kernel_reachable": 0,
+            "supabase_reachable": 0,
+            "error": str(e),
+        }
 
 
 if __name__ == "__main__":
