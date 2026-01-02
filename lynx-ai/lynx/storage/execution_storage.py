@@ -62,6 +62,7 @@ class ExecutionStorage:
         draft_id: Optional[str] = None,
         tool_id: Optional[str] = None,
         status: Optional[ExecutionStatus] = None,
+        limit: Optional[int] = None,
     ) -> List[ExecutionRecord]:
         """List executions for a tenant."""
         executions = [e for e in self.executions.values() if e.tenant_id == tenant_id]
@@ -74,6 +75,12 @@ class ExecutionStorage:
         
         if status:
             executions = [e for e in executions if e.status == status]
+        
+        # Sort by created_at descending
+        executions = sorted(executions, key=lambda x: x.created_at, reverse=True)
+        
+        if limit:
+            executions = executions[:limit]
         
         return executions
     
@@ -198,6 +205,7 @@ class ExecutionStorageSupabase(ExecutionStorage):
         draft_id: Optional[str] = None,
         tool_id: Optional[str] = None,
         status: Optional[ExecutionStatus] = None,
+        limit: Optional[int] = None,
     ) -> List[ExecutionRecord]:
         """List executions for a tenant."""
         query = (
@@ -215,6 +223,9 @@ class ExecutionStorageSupabase(ExecutionStorage):
         
         if status:
             query = query.eq("status", status.value)
+        
+        if limit:
+            query = query.limit(limit)
         
         result = query.execute()
         

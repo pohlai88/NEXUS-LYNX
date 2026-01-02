@@ -6,6 +6,7 @@ Handles graceful shutdown, heartbeat logging, and periodic status checks.
 """
 
 import asyncio
+import os
 import signal
 import sys
 from datetime import datetime
@@ -17,6 +18,7 @@ from lynx.core.session import SessionManager
 from lynx.core.registry import MCPToolRegistry
 from lynx.core.audit import AuditLogger
 from lynx.mcp.server import initialize_mcp_server
+from lynx.runtime.dashboard_server import start_dashboard_server
 
 
 class LynxDaemon:
@@ -112,9 +114,23 @@ class LynxDaemon:
         print(f"   ✅ Cell MCPs: {len(self.tool_registry.list_by_layer('cell'))}")
         print(f"   ✅ Active sessions: {len(self.session_manager.sessions)}")
         print("=" * 60)
+        # Start dashboard server (if enabled)
+        dashboard_enabled = os.getenv("DASHBOARD_ENABLED", "true").lower() == "true"
+        if dashboard_enabled:
+            try:
+                dashboard_port = int(os.getenv("PORT", "8000"))
+                start_dashboard_server(dashboard_port)
+            except Exception as e:
+                print(f"⚠️  Dashboard server failed to start: {e}")
+                print("   Continuing without dashboard (daemon will still work)")
+        
         print("\n💚 Daemon running. Waiting for MCP client connections...")
         print(f"   Heartbeat interval: {Config.DAEMON_HEARTBEAT_INTERVAL}s")
         print(f"   Status check interval: {Config.DAEMON_STATUS_CHECK_INTERVAL}s")
+        if dashboard_enabled:
+            dashboard_url = os.getenv("RAILWAY_PUBLIC_DOMAIN", f"http://localhost:{os.getenv('PORT', '8000')}")
+            print(f"   🌐 Dashboard: {dashboard_url}/")
+            print(f"   📊 Health: {dashboard_url}/health")
         print("   Press Ctrl+C or send SIGTERM to shutdown gracefully\n")
         
         return True
