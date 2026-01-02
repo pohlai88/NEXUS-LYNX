@@ -1,0 +1,36 @@
+{
+  "name": "nexuscanon-lynx",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "docs:generate": "tsx scripts/generate-docs.ts",
+    "docs:audit": "tsx scripts/audit-docs.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pohlai88/NexusCanon-Lynx.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pohlai88/NexusCanon-Lynx/issues"
+  },
+  "homepage": "https://github.com/pohlai88/NexusCanon-Lynx#readme",
+  "dependencies": {
+    "@aibos/docs-registry": "^0.1.1",
+    "glob": "^13.0.0",
+    "handlebars": "^4.7.8"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

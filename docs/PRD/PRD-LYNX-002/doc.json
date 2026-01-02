@@ -1,0 +1,23 @@
+{
+  "document_id": "PRD-LYNX-002",
+  "document_type": "PRD",
+  "classification": "STANDARD",
+  "title": "LYNX AI — SHIP NOW: Fastest MCP Rollout Strategy",
+  "status": "DRAFT",
+  "authority": "DERIVED",
+  "scope": "KERNEL",
+  "derived_from": ["PRD-LYNX-001"],
+  "supersedes": [],
+  "version": "1.0.0",
+  "owners": [
+    "Founder",
+    "Chief Architect",
+    "Product Owner"
+  ],
+  "checksum_sha256": "",
+  "implemented": [],
+  "approvals": [],
+  "created_at": "2026-01-01",
+  "updated_at": "2026-01-01"
+}
+

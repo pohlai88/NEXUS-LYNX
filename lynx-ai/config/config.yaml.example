@@ -1,0 +1,37 @@
+# Lynx AI Configuration
+# Copy this file to config.yaml and update with your values
+
+execution_engine: asyncio
+
+logger:
+  transports: [console, file]
+  level: info
+  path: "logs/lynx.jsonl"
+
+mcp:
+  servers:
+    lynx_mcp_server:
+      command: "python"
+      args: ["-m", "lynx.mcp.server"]
+
+openai:
+  default_model: gpt-4o
+  api_key: "${OPENAI_API_KEY}"
+
+kernel:
+  api_url: "${KERNEL_API_URL}"
+  api_key: "${KERNEL_API_KEY}"
+
+supabase:
+  url: "${SUPABASE_URL}"
+  key: "${SUPABASE_KEY}"
+
+tenant:
+  isolation:
+    enabled: true
+    strict: true
+
+audit:
+  enabled: true
+  retention_days: 2555  # 7 years (SOX compliance)
+

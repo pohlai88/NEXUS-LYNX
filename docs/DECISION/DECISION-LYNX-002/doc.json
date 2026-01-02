@@ -1,0 +1,15 @@
+{
+  "id": "DECISION-LYNX-002",
+  "title": "Phase 4 Cell Execution Protocol + Allowed Cell Tools",
+  "status": "approved",
+  "version": "1.0.0",
+  "date": "2026-01-27",
+  "related_documents": [
+    "PRD-LYNX-003",
+    "ADR-LYNX-001",
+    "TSD-LYNX-001"
+  ],
+  "decision_type": "architecture",
+  "impact": "high"
+}
+

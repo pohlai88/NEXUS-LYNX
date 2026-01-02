@@ -1,0 +1,22 @@
+{
+  "document_id": "PRD-LYNX-001",
+  "document_type": "PRD",
+  "classification": "STANDARD",
+  "title": "MASTER PRD — LYNX AI: Kernel-Governed Artificial Intelligence for AI-BOS NexusCanon",
+  "status": "APPROVED",
+  "authority": "DERIVED",
+  "scope": "KERNEL",
+  "derived_from": [],
+  "supersedes": [],
+  "version": "1.0.0",
+  "owners": [
+    "Founder",
+    "Chief Architect",
+    "Product Owner"
+  ],
+  "checksum_sha256": "c31bea1367279aabc68879941b217b03deaf28df49d69a07e9ea430e29a621f8",
+  "implemented": [],
+  "approvals": [],
+  "created_at": "2026-01-01",
+  "updated_at": "2026-01-01"
+}

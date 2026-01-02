@@ -1,0 +1,22 @@
+{
+  "document_id": "TSD-LYNX-001",
+  "document_type": "TSD",
+  "classification": "STANDARD",
+  "title": "Technical Specification Document — LYNX AI",
+  "status": "DRAFT",
+  "authority": "DERIVED",
+  "scope": "MULTI_TENANT_PRODUCTION_MVP",
+  "derived_from": ["PRD-LYNX-001", "PRD-LYNX-003", "ADR-LYNX-001", "SRS-LYNX-001"],
+  "supersedes": [],
+  "version": "1.0.0",
+  "owners": [
+    "Chief Architect",
+    "Lead Engineer"
+  ],
+  "checksum_sha256": "GENERATED_ON_SAVE",
+  "implemented": [],
+  "approvals": [],
+  "created_at": "2026-01-01",
+  "updated_at": "2026-01-01"
+}
+

@@ -1,0 +1,2 @@
+web: LYNX_RUNNER=daemon uv run python -m lynx.runtime.daemon
+
