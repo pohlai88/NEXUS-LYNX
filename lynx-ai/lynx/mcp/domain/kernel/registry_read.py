@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 from typing import List, Dict, Optional
 from lynx.core.registry import MCPTool
 from lynx.core.session import ExecutionContext
-from lynx.integration.kernel import KernelAPI
+from lynx.integration.kernel import create_kernel_client
 
 
 class KernelRegistryInput(BaseModel):
@@ -66,13 +66,8 @@ async def kernel_registry_read_handler(
     Returns:
         KernelRegistryOutput with tool definitions and policies
     """
-    # Initialize Kernel API for this tenant (if available)
-    kernel_api = None
-    try:
-        kernel_api = KernelAPI(tenant_id=context.tenant_id)
-    except (ValueError, Exception):
-        # Kernel API not available (e.g., in tests) - use mock data
-        pass
+    # Initialize Kernel API for this tenant (uses lite mode if API not available)
+    kernel_api = create_kernel_client(tenant_id=context.tenant_id)
     
     try:
         # Read registry metadata from Kernel (tenant-scoped)

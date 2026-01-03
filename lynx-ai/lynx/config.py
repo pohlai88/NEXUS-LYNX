@@ -35,6 +35,9 @@ class Config:
     # Runner Mode
     LYNX_RUNNER: LynxRunner = LynxRunner(os.getenv("LYNX_RUNNER", "oneshot").lower())
     
+    # Kernel Mode
+    KERNEL_MODE: str = os.getenv("KERNEL_MODE", "api").lower()  # "api" or "lite"
+    
     # Kernel API
     KERNEL_API_URL: Optional[str] = os.getenv("KERNEL_API_URL")
     
@@ -68,8 +71,9 @@ class Config:
     @classmethod
     def validate(self) -> None:
         """Validate configuration."""
-        if self.KERNEL_API_URL is None:
-            raise ValueError("KERNEL_API_URL environment variable is required")
+        # KERNEL_API_URL is optional if using lite mode
+        if self.KERNEL_MODE == "api" and self.KERNEL_API_URL is None:
+            raise ValueError("KERNEL_API_URL environment variable is required when KERNEL_MODE=api")
         
         if self.SUPABASE_URL is None:
             raise ValueError("SUPABASE_URL environment variable is required")

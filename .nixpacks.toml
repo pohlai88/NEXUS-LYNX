@@ -1,0 +1,22 @@
+# Nixpacks configuration for Railway
+# This ensures uv is available in the build and runtime environment
+
+[phases.setup]
+nixPkgs = ["python311", "curl"]
+
+[phases.install]
+cmds = [
+  "curl -LsSf https://astral.sh/uv/install.sh | sh",
+  "export PATH=\"$HOME/.local/bin:$PATH\"",
+  "cd lynx-ai && uv sync"
+]
+
+[phases.build]
+cmds = [
+  "export PATH=\"$HOME/.local/bin:$PATH\"",
+  "cd lynx-ai && uv sync"
+]
+
+[start]
+cmd = "cd lynx-ai && export PATH=\"$HOME/.local/bin:$PATH\" && LYNX_RUNNER=daemon uv run python -m lynx.runtime.daemon"
+

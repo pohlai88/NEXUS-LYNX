@@ -2,10 +2,10 @@
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
     "builder": "NIXPACKS",
-    "buildCommand": "cd lynx-ai && uv sync"
+    "buildCommand": "curl -LsSf https://astral.sh/uv/install.sh | sh && export PATH=\"$HOME/.local/bin:$PATH\" && cd lynx-ai && uv sync"
   },
   "deploy": {
-    "startCommand": "cd lynx-ai && LYNX_RUNNER=daemon uv run python -m lynx.runtime.daemon",
+    "startCommand": "cd lynx-ai && export PATH=\"$HOME/.local/bin:$PATH\" && LYNX_RUNNER=daemon uv run python -m lynx.runtime.daemon",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }

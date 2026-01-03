@@ -2,9 +2,9 @@
 MCP Server for Lynx AI.
 
 This module sets up the MCP server that exposes Lynx MCP tools.
+Following PRD-LYNX-003 requirements and mcp-agent best practices.
 """
 
-from mcp_agent.app import app
 from lynx.core.registry import MCPToolRegistry
 
 # Domain MCPs
@@ -23,8 +23,13 @@ from lynx.mcp.domain.vpm.payment_status_read import register_vpm_payment_status_
 
 # Cluster MCPs
 from lynx.mcp.cluster.docs.draft_create import register_docs_draft_create_tool
+from lynx.mcp.cluster.docs.batch_draft_create import register_batch_docs_draft_create_tool
+from lynx.mcp.cluster.docs.message_draft_create import register_message_docs_draft_create_tool
 from lynx.mcp.cluster.workflow.draft_create import register_workflow_draft_create_tool
+from lynx.mcp.cluster.workflow.digital_draft_create import register_digital_workflow_draft_create_tool
 from lynx.mcp.cluster.vpm.payment_draft_create import register_vpm_payment_draft_create_tool
+from lynx.mcp.cluster.portal.scaffold_draft_create import register_portal_scaffold_draft_create_tool
+from lynx.mcp.cluster.portal.config_draft_create import register_portal_config_draft_create_tool
 
 # Cell MCPs
 from lynx.mcp.cell.docs.draft_submit_for_approval import register_docs_draft_submit_for_approval_tool
@@ -55,16 +60,21 @@ def initialize_mcp_server(registry: MCPToolRegistry) -> None:
     
     # Register Cluster MCPs
     register_docs_draft_create_tool(registry)
+    register_batch_docs_draft_create_tool(registry)
+    register_message_docs_draft_create_tool(registry)
     register_workflow_draft_create_tool(registry)
+    register_digital_workflow_draft_create_tool(registry)
     register_vpm_payment_draft_create_tool(registry)
+    register_portal_scaffold_draft_create_tool(registry)
+    register_portal_config_draft_create_tool(registry)
     
     # Register Cell MCPs
     register_docs_draft_submit_for_approval_tool(registry)
     register_workflow_draft_publish_tool(registry)
     register_vpm_payment_execute_tool(registry)
     
-    # TODO: Register more Cluster MCPs
-    # TODO: Register more Cell MCPs
+    # All Cluster MCPs registered (8 tools total)
+    # TODO: Register more Cell MCPs (if needed)
     
-    print(f"✅ MCP Server initialized with {len(registry.list_all())} tools")
+    print(f"[OK] MCP Server initialized with {len(registry.list_all())} tools")
 

@@ -6,6 +6,11 @@
 **Phase:** 5.2 - Staging Deployment & Verification  
 **Status:** ✅ Complete
 
+> **📌 FOR NEXT DEV:** 
+> - See `OPTIMIZATION-ROADMAP.md` for 15 optimization opportunities from production-grade framework study
+> - See `SHIP-READY-2026-01-27.md` for complete ship status and document organization
+> - See `NEXT-DEV-GUIDE.md` for quick start guide
+
 ---
 
 ## Prerequisites

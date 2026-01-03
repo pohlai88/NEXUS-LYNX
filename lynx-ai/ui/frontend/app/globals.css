@@ -1,0 +1,95 @@
+/* Neo-Analog Ops Console Theme - CSS Variables */
+:root {
+  /* Base Palette (Zinc-950/900) */
+  --color-void: #09090b;
+  --color-paper: #121214;
+  --color-paper-2: #18181b;
+  --color-paper-hover: #27272a;
+  
+  /* Accent (Gold) */
+  --color-lux: #fbbf24;
+  --color-gold: #f59e0b;
+  
+  /* Text */
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+  
+  /* Status Colors */
+  --color-success: #10b981;
+  --color-error: #ef4444;
+  --color-warning: #f59e0b;
+  --color-info: #3b82f6;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  
+  /* Typography */
+  --font-mono: 'Courier New', monospace;
+  --font-sans: system-ui, -apple-system, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-void);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+/* Button Styles */
+.button-primary {
+  background-color: var(--color-lux);
+  color: var(--color-void);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.button-primary:hover {
+  background-color: var(--color-gold);
+}
+
+.button-secondary {
+  background-color: var(--color-paper-2);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-paper-hover);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button-danger {
+  background-color: var(--color-error);
+  color: white;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Loading States */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.error {
+  color: var(--color-error);
+}
+
+.success {
+  color: var(--color-success);
+}
+

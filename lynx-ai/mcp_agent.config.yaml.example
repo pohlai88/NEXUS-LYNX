@@ -1,0 +1,49 @@
+# mcp-agent Configuration for Lynx AI
+# Copy this file to mcp_agent.config.yaml and update with your values
+# Following mcp-agent framework patterns per PRD-LYNX-003
+
+execution_engine: asyncio
+
+logger:
+  transports: [console, file]  # Array of transports (framework pattern)
+  level: info  # debug, info, warning, error
+  path: "logs/lynx.jsonl"  # Used for file transport
+  # Optional: Dynamic log paths (framework pattern)
+  # path_settings:
+  #   path_pattern: "logs/lynx-{unique_id}.jsonl"
+  #   unique_id: "timestamp"  # or "session_id"
+  #   timestamp_format: "%Y%m%d_%H%M%S"
+
+# MCP server configuration
+# Note: Lynx uses custom tool registry, but this config supports
+# future integration with external MCP servers
+mcp:
+  servers:
+    # Example: External MCP servers can be configured here
+    # fetch:
+    #   command: "uvx"
+    #   args: ["mcp-server-fetch"]
+
+# LLM provider configuration
+openai:
+  default_model: gpt-4o  # or gpt-4o-mini for cost savings
+  # api_key is loaded from mcp_agent.secrets.yaml or OPENAI_API_KEY env var
+
+# Anthropic (optional)
+# anthropic:
+#   api_key: "${ANTHROPIC_API_KEY}"
+
+# Google (optional)
+# google:
+#   api_key: "${GOOGLE_API_KEY}"
+
+# Lynx-specific configuration (not part of mcp-agent, but loaded separately)
+# These are loaded via load_config() in lynx/core/runtime/app.py
+# kernel:
+#   api_url: "${KERNEL_API_URL}"
+#   api_key: "${KERNEL_API_KEY}"
+# 
+# supabase:
+#   url: "${SUPABASE_URL}"
+#   key: "${SUPABASE_KEY}"
+

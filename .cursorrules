@@ -1,0 +1,656 @@
+# Cursor Rules - Anti-Drift & Cross-Validation Policy
+
+**Version:** 1.0.0  
+**Date:** 2026-01-27  
+**Purpose:** Prevent PRD violations and ensure contract compliance  
+**Authority:** Derived from PRD-LYNX-003, BREACH-LOG-001
+
+---
+
+## CRITICAL: PRD Compliance Enforcement
+
+### Rule 1: PRD is Contract - No Deviations Without Authorization
+
+**MANDATORY:** Before implementing ANY feature or making ANY architectural decision:
+
+1. **READ the relevant PRD section first**
+2. **VERIFY your approach matches PRD requirements**
+3. **FLAG any deviations immediately**
+4. **REQUEST authorization before deviating**
+
+**Violation Example (BREACH-LOG-001):**
+- PRD said "study examples" → AI skipped and built custom
+- PRD said "clone repositories" → AI only installed packages
+- PRD said "use framework patterns" → AI built custom implementations
+
+**Required Behavior:**
+- ✅ Read PRD-LYNX-003 before starting Phase 1 work
+- ✅ Verify each step matches PRD requirements
+- ✅ Flag deviations immediately
+- ✅ Request approval for any deviation
+
+---
+
+## Anti-Drift Policies
+
+### Policy 1: No Optimization Without Validation
+
+**Rule:** You MUST NOT optimize away requirements, even if you think it's "better" or "faster".
+
+**Examples of Violations:**
+- ❌ "I'll build custom instead of using framework - it's faster"
+- ❌ "I'll skip the study phase - I can figure it out"
+- ❌ "I'll use a different approach - it's better"
+
+**Required Behavior:**
+- ✅ Follow PRD exactly as written
+- ✅ If you think there's a better way, ASK FIRST
+- ✅ Document why you're deviating (if authorized)
+- ✅ Get explicit approval before changing approach
+
+---
+
+### Policy 2: Ambiguity Resolution Protocol
+
+**Rule:** When requirements are ambiguous, you MUST:
+1. **Clarify with user** - Don't assume
+2. **Check PRD** - Look for explicit guidance
+3. **Check related documents** - DECISION, ANALYSIS, ADR documents
+4. **Escalate** - If still unclear, ask for clarification
+
+**Violation Example:**
+- PRD said "use mcp-agent" → AI interpreted as "install package" (minimal)
+- Should have interpreted as "study, clone, and follow patterns" (full)
+
+**Required Behavior:**
+- ✅ When you see "use X", check if PRD says "study X" or "clone X"
+- ✅ When you see "follow patterns", verify you've studied the patterns
+- ✅ When unclear, ASK - don't guess
+- ✅ Prefer comprehensive interpretation over minimal
+
+---
+
+### Policy 3: Framework Over Custom
+
+**Rule:** When PRD specifies a framework or library, you MUST:
+1. **Study it first** - Read documentation, examples, source code
+2. **Use it as intended** - Follow framework patterns
+3. **Don't reinvent** - Use framework features, don't build custom
+
+**Violation Example:**
+- PRD said "use mcp-agent patterns" → AI built custom MCPToolRegistry
+- PRD said "use enterprise-mcp-framework" → AI built custom governance
+
+**Required Behavior:**
+- ✅ If PRD says "clone X", clone it and study it
+- ✅ If PRD says "use X patterns", study examples first
+- ✅ If PRD says "integrate X", integrate it properly
+- ✅ Only build custom if PRD explicitly allows it
+
+---
+
+### Policy 4: Learning Phase is Mandatory
+
+**Rule:** When PRD says "study" or "learn from", you MUST:
+1. **Actually study** - Don't skip this step
+2. **Document what you learned** - Show evidence of study
+3. **Apply learnings** - Use patterns you studied
+4. **Verify application** - Confirm you're using learned patterns
+
+**Violation Example:**
+- PRD said "study browser_mcp_agent example" → AI skipped
+- PRD said "learn from github_mcp_agent" → AI didn't study
+
+**Required Behavior:**
+- ✅ When PRD says "study X", actually access and review X
+- ✅ Document key patterns you learned
+- ✅ Apply those patterns in implementation
+- ✅ Verify your code matches learned patterns
+
+---
+
+## Cross-Validation Requirements
+
+### Validation Gate 1: Pre-Implementation Check
+
+**BEFORE starting any implementation:**
+
+```markdown
+## Pre-Implementation Validation Checklist
+
+- [ ] I have read the relevant PRD section
+- [ ] I understand the requirements
+- [ ] I have checked related documents (DECISION, ANALYSIS, ADR)
+- [ ] My approach matches PRD requirements
+- [ ] I have studied any required examples/frameworks
+- [ ] I have cloned any required repositories
+- [ ] I am using frameworks as specified (not building custom)
+- [ ] I will flag any deviations immediately
+```
+
+**If ANY checkbox is unchecked, STOP and:**
+1. Complete the missing step
+2. Or request clarification/authorization
+
+---
+
+### Validation Gate 2: Implementation Check
+
+**DURING implementation:**
+
+```markdown
+## Implementation Validation Checklist
+
+- [ ] My code follows PRD-specified patterns
+- [ ] I am using frameworks as intended
+- [ ] I have not built custom when framework exists
+- [ ] My implementation matches studied examples
+- [ ] I have not optimized away requirements
+- [ ] I am following the exact approach from PRD
+```
+
+**If you find yourself deviating:**
+1. STOP immediately
+2. Document the deviation
+3. Request authorization
+4. Get approval before continuing
+
+---
+
+### Validation Gate 3: Post-Implementation Review
+
+**AFTER implementation:**
+
+```markdown
+## Post-Implementation Validation Checklist
+
+- [ ] My implementation matches PRD requirements
+- [ ] I used frameworks as specified
+- [ ] I followed studied patterns
+- [ ] I did not build custom unnecessarily
+- [ ] I can explain how my code aligns with PRD
+- [ ] I have documented any authorized deviations
+```
+
+**If validation fails:**
+1. Document the gap
+2. Fix the implementation
+3. Or request deviation authorization
+
+---
+
+## Framework Integration Rules
+
+### Rule: Clone Before Install
+
+**When PRD says to use a framework:**
+
+1. **First:** Clone the repository (if specified)
+2. **Second:** Study the code and examples
+3. **Third:** Install as package (if needed)
+4. **Fourth:** Integrate following patterns
+
+**Wrong Order (Violation):**
+- Install package → Build custom → Never study
+
+**Right Order (Required):**
+- Clone → Study → Install → Integrate → Use patterns
+
+---
+
+### Rule: Study Examples Before Coding
+
+**When PRD references examples:**
+
+1. **Access the examples** (clone, browse, read)
+2. **Study the patterns** (understand structure, approach)
+3. **Document learnings** (note key patterns)
+4. **Apply learnings** (use patterns in your code)
+
+**Violation:**
+- Skip study → Build from assumptions → Errors occur
+
+**Required:**
+- Study examples → Learn patterns → Apply patterns → Verify match
+
+---
+
+## PRD Reference Protocol
+
+### Mandatory PRD Checks
+
+**Before ANY major implementation:**
+
+1. **Locate relevant PRD:**
+   - Check `docs/PRD/` directory
+   - Find PRD for current feature/phase
+   - Read the relevant section
+
+2. **Check PRD status:**
+   - Is PRD APPROVED?
+   - Is PRD LOCKED? (No deviations allowed)
+   - What is the exact requirement?
+
+3. **Check related documents:**
+   - DECISION documents (implementation strategy)
+   - ANALYSIS documents (framework selection)
+   - ADR documents (architecture decisions)
+
+4. **Verify your approach:**
+   - Does it match PRD exactly?
+   - Are you using specified frameworks?
+   - Are you following specified patterns?
+
+---
+
+## Deviation Authorization Process
+
+### When Deviation is Necessary
+
+**If you MUST deviate from PRD:**
+
+1. **Document the deviation:**
+   - What requirement are you deviating from?
+   - Why is deviation necessary?
+   - What is your alternative approach?
+
+2. **Request authorization:**
+   - Present deviation to user
+   - Explain why it's necessary
+   - Get explicit approval
+
+3. **Document authorization:**
+   - Record who authorized
+   - Record why it was authorized
+   - Record the alternative approach
+
+**NEVER deviate without authorization.**
+
+---
+
+## Specific PRD-LYNX-003 Requirements
+
+### Phase 1 Requirements (MANDATORY):
+
+1. **Study Examples:**
+   - ✅ Study `awesome-llm-apps/mcp_ai_agents/browser_mcp_agent/`
+   - ✅ Study `awesome-llm-apps/mcp_ai_agents/github_mcp_agent/`
+   - ✅ Reference `ANALYSIS-LYNX-002.md`
+
+2. **Clone Repositories:**
+   - ✅ Clone `enterprise-mcp-framework` (if DECISION-LYNX-002 applies)
+   - ✅ Clone `mcp-agent` (if DECISION-LYNX-002 applies)
+
+3. **Use Frameworks:**
+   - ✅ Use `mcp-agent` tool registration patterns
+   - ✅ Use `enterprise-mcp-framework` for governance (if specified)
+   - ✅ Follow framework patterns, don't build custom
+
+4. **Integration:**
+   - ✅ Wrap mcp-agent with Enterprise Proxy (if specified)
+   - ✅ Configure tenant isolation, audit, RBAC (as specified)
+
+**Violation of ANY of these = BREACH**
+
+---
+
+## Error Prevention
+
+### Common Violations to Avoid:
+
+1. **"I'll just install the package"**
+   - ❌ Wrong: Install without studying
+   - ✅ Right: Clone, study, then install
+
+2. **"I'll build it custom - it's faster"**
+   - ❌ Wrong: Build custom instead of using framework
+   - ✅ Right: Use framework as specified
+
+3. **"I'll skip the study phase"**
+   - ❌ Wrong: Skip learning examples
+   - ✅ Right: Study examples first
+
+4. **"I'll interpret this loosely"**
+   - ❌ Wrong: Minimal interpretation
+   - ✅ Right: Comprehensive interpretation, ask if unclear
+
+---
+
+## Validation Commands
+
+### Before Starting Work:
+
+```bash
+# Check PRD status
+grep -r "PRD-LYNX-003" docs/PRD/
+
+# Check for framework requirements
+grep -r "mcp-agent\|enterprise-mcp" docs/PRD/
+
+# Check for study requirements
+grep -r "study\|learn from\|clone" docs/PRD/
+```
+
+### During Implementation:
+
+```bash
+# Verify framework usage
+grep -r "from mcp_agent\|from enterprise_mcp" lynx-ai/
+
+# Check for custom implementations
+grep -r "class.*Registry\|class.*Logger" lynx-ai/ | grep -v "test"
+
+# Verify examples were studied
+# (Check for comments referencing examples)
+```
+
+---
+
+## Enforcement
+
+### Self-Enforcement:
+
+**You MUST:**
+- Check these rules before every implementation
+- Validate against PRD before coding
+- Flag violations immediately
+- Request authorization for deviations
+- Run validation checklists (pre, during, post)
+- Document evidence of compliance
+
+### User Validation:
+
+**User SHOULD:**
+- Review implementation against PRD
+- Check for framework usage
+- Verify examples were studied
+- Approve or reject deviations
+- Review validation checklists
+- Verify evidence of compliance
+
+### Automated Enforcement:
+
+**Future Implementation:**
+- Pre-commit hooks checking PRD compliance
+- Automated validation scripts
+- CI/CD checks for framework usage
+- Pattern matching to detect custom implementations
+
+---
+
+## Breach Detection Patterns
+
+### Red Flags (STOP if you see these):
+
+1. **"I'll build it custom"** → Should use framework
+2. **"I'll skip the study"** → Study is mandatory
+3. **"I'll interpret this loosely"** → Use comprehensive interpretation
+4. **"I'll optimize this"** → Don't optimize requirements
+5. **"I don't need to check PRD"** → PRD check is mandatory
+
+### Detection Commands:
+
+```bash
+# Check for custom implementations when frameworks exist
+grep -r "class.*Registry\|class.*Logger\|class.*Manager" lynx-ai/lynx/core/ | grep -v test
+
+# Check if frameworks are actually used
+grep -r "from mcp_agent\|from enterprise_mcp" lynx-ai/
+
+# Check if examples were referenced
+grep -r "browser_mcp_agent\|github_mcp_agent\|awesome-llm-apps" lynx-ai/
+
+# Check if repositories were cloned
+find . -type d -name "mcp-agent" -o -name "enterprise-mcp-framework"
+```
+
+---
+
+## Continuous Monitoring
+
+### Self-Monitoring Questions:
+
+**Before every code change, ask:**
+1. "Have I read the PRD section for this?"
+2. "Am I using frameworks as specified?"
+3. "Did I study required examples?"
+4. "Am I following learned patterns?"
+5. "Am I building custom unnecessarily?"
+6. "Would this violate PRD requirements?"
+
+**If answer is "no" or "unsure" to ANY question:**
+- STOP
+- Complete missing step
+- Or request clarification
+
+---
+
+## Breach Response Protocol
+
+### If You Detect a Breach:
+
+1. **STOP immediately** - Don't continue the violation
+2. **Document the breach** - What requirement was violated?
+3. **Assess impact** - What needs to be fixed?
+4. **Fix the violation** - Correct the implementation
+5. **Validate fix** - Ensure it now complies with PRD
+6. **Document lesson** - What prevented this earlier?
+
+### If User Detects a Breach:
+
+1. **Acknowledge immediately** - Don't defend, accept
+2. **Document the breach** - Add to breach log
+3. **Analyze root cause** - Why did it happen?
+4. **Fix immediately** - Correct the violation
+5. **Implement prevention** - Update rules if needed
+6. **Validate fix** - Ensure compliance restored
+
+---
+
+## Breach Consequences
+
+### If You Violate These Rules:
+
+1. **Document the breach** (like BREACH-LOG-001)
+2. **Fix the violation** immediately
+3. **Explain why it happened**
+4. **Implement prevention** to avoid recurrence
+
+### Pattern Detection:
+
+**If you find yourself:**
+- Building custom when framework exists
+- Skipping study phases
+- Interpreting requirements minimally
+- Optimizing away requirements
+
+**STOP and:**
+- Re-read PRD
+- Check these rules
+- Request clarification
+- Get authorization
+
+---
+
+## Cross-Validation Protocol
+
+### Mandatory Three-Gate Validation
+
+**Gate 1: Pre-Implementation (BEFORE coding)**
+```markdown
+## Pre-Implementation Checklist
+
+### PRD Compliance:
+- [ ] I have read the relevant PRD section
+- [ ] I understand the exact requirements
+- [ ] I have checked PRD status (APPROVED/LOCKED)
+- [ ] I know deviations require RFC process
+
+### Related Documents:
+- [ ] I have read DECISION documents (if applicable)
+- [ ] I have read ANALYSIS documents (if applicable)
+- [ ] I have checked ADR documents (if applicable)
+
+### Framework Requirements:
+- [ ] I have identified required frameworks
+- [ ] I have cloned required repositories (if specified)
+- [ ] I have studied required examples
+- [ ] I understand framework patterns
+
+### Study Phase:
+- [ ] I have accessed and studied required examples
+- [ ] I have documented key patterns learned
+- [ ] I can explain how I'll apply these patterns
+
+### Approach Validation:
+- [ ] My approach matches PRD exactly
+- [ ] I am using frameworks as specified
+- [ ] I am following studied patterns
+- [ ] I am not building custom unnecessarily
+
+### Authorization:
+- [ ] I have no deviations from PRD
+- [ ] OR: I have documented deviation and requested authorization
+```
+
+**If ANY checkbox is unchecked, STOP and complete it first.**
+
+---
+
+**Gate 2: During Implementation (CONTINUOUS)**
+```markdown
+## Implementation Validation Checklist
+
+### Pattern Compliance:
+- [ ] My code follows PRD-specified patterns
+- [ ] My code matches studied examples
+- [ ] I am using framework APIs correctly
+- [ ] I am not inventing custom patterns
+
+### Framework Usage:
+- [ ] I am using frameworks as intended
+- [ ] I have not built custom when framework exists
+- [ ] I am following framework documentation
+- [ ] I am using framework features, not workarounds
+
+### Requirement Compliance:
+- [ ] I have not optimized away requirements
+- [ ] I have not skipped mandatory steps
+- [ ] I have not interpreted requirements minimally
+- [ ] I am following the exact PRD approach
+```
+
+**If you find yourself violating any item, STOP and fix it.**
+
+---
+
+**Gate 3: Post-Implementation (BEFORE commit)**
+```markdown
+## Post-Implementation Checklist
+
+### Code Review:
+- [ ] My implementation matches PRD requirements
+- [ ] I used frameworks as specified
+- [ ] I followed studied patterns
+- [ ] I did not build custom unnecessarily
+
+### Evidence:
+- [ ] I can show evidence of studying examples
+- [ ] I can show evidence of cloning repositories (if required)
+- [ ] I can explain how my code aligns with PRD
+- [ ] I can point to specific PRD sections I followed
+
+### Deviation Documentation:
+- [ ] I have no unauthorized deviations
+- [ ] OR: I have documented authorized deviations with approval
+
+### Error Check:
+- [ ] My code does not have obvious errors
+- [ ] I have tested framework integration
+- [ ] I have verified library usage is correct
+```
+
+**If validation fails, fix before proceeding.**
+
+---
+
+## Automated Validation Commands
+
+### Before Starting Work:
+
+```bash
+# Check PRD status
+grep -r "PRD-LYNX-003" docs/PRD/
+
+# Check for framework requirements
+grep -r "mcp-agent\|enterprise-mcp" docs/PRD/
+
+# Check for study requirements
+grep -r "study\|learn from\|clone" docs/PRD/
+
+# Check DECISION documents for integration strategy
+grep -r "DECISION-LYNX-002" docs/DECISION/
+```
+
+### During Implementation:
+
+```bash
+# Verify framework usage
+grep -r "from mcp_agent\|from enterprise_mcp" lynx-ai/
+
+# Check for custom implementations (should be minimal)
+grep -r "class.*Registry\|class.*Logger" lynx-ai/ | grep -v "test"
+
+# Verify examples were studied
+grep -r "browser_mcp_agent\|github_mcp_agent" lynx-ai/
+
+# Check if repositories were cloned
+ls -la | grep -E "mcp-agent|enterprise-mcp"
+```
+
+---
+
+## Breach Detection Patterns
+
+### Red Flags (STOP if you see these):
+
+1. **"I'll build it custom"** → Should use framework
+2. **"I'll skip the study"** → Study is mandatory
+3. **"I'll interpret this loosely"** → Use comprehensive interpretation
+4. **"I'll optimize this"** → Don't optimize requirements
+5. **"I don't need to check PRD"** → PRD check is mandatory
+
+### Self-Monitoring Questions:
+
+**Before every code change, ask:**
+1. "Have I read the PRD section for this?"
+2. "Am I using frameworks as specified?"
+3. "Did I study required examples?"
+4. "Am I following learned patterns?"
+5. "Am I building custom unnecessarily?"
+6. "Would this violate PRD requirements?"
+
+**If answer is "no" or "unsure" to ANY question:**
+- STOP
+- Complete missing step
+- Or request clarification
+
+---
+
+## Summary
+
+**Core Principles:**
+
+1. **PRD is Contract** - Follow it exactly
+2. **Study Before Build** - Learn patterns first
+3. **Framework Over Custom** - Use specified frameworks
+4. **Validate Always** - Check against PRD (3 gates)
+5. **Ask When Unclear** - Don't guess or assume
+6. **No Optimization Without Authorization** - Don't shortcut requirements
+
+**Remember:** The goal is correctness and compliance, not speed or "better" solutions. Follow the plan.
+
+---
+
+**This document is MANDATORY reading before any implementation work.**
+

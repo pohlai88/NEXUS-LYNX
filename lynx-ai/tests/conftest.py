@@ -251,3 +251,40 @@ def audit_logger_in_memory():
     
     return InMemoryAuditLogger()
 
+
+# ============================================================================
+# API Testing Fixtures
+# ============================================================================
+
+import os
+import httpx
+from typing import AsyncGenerator
+
+
+@pytest.fixture
+def api_base_url() -> str:
+    """Get API base URL from environment or default to localhost."""
+    return os.getenv("TEST_API_URL", "http://localhost:8000")
+
+
+@pytest.fixture
+async def api_client(api_base_url: str) -> AsyncGenerator[httpx.AsyncClient, None]:
+    """
+    Async HTTP client for API testing.
+    
+    Environment-driven: Set TEST_API_URL to test against Railway or localhost.
+    - Local: TEST_API_URL=http://localhost:8000 pytest
+    - Railway: TEST_API_URL=https://lynx-ai-production.up.railway.app pytest -m integration
+    """
+    timeout = httpx.Timeout(30.0, connect=10.0)
+    async with httpx.AsyncClient(base_url=api_base_url, timeout=timeout, follow_redirects=True) as client:
+        yield client
+
+
+# Pytest markers
+def pytest_configure(config):
+    """Register custom markers."""
+    config.addinivalue_line("markers", "integration: marks tests as integration tests (deselect with '-m \"not integration\"')")
+    config.addinivalue_line("markers", "performance: marks tests as performance tests")
+    config.addinivalue_line("markers", "stress: marks tests as stress/edge-case tests")
+    config.addinivalue_line("markers", "contract: marks tests as contract validation tests")

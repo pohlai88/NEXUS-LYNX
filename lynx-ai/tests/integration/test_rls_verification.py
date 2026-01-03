@@ -20,7 +20,7 @@ from lynx.mcp.cluster.drafts.models import DraftProtocol, DraftStatus
 from lynx.storage.draft_storage import DraftStorageSupabase, get_draft_storage
 from lynx.mcp.cell.execution.models import ExecutionRecord, ExecutionStatus
 from lynx.storage.execution_storage import ExecutionStorageSupabase, get_execution_storage
-from lynx.storage.settlement_storage import SettlementIntentStorageSupabase, get_settlement_intent_storage
+from lynx.storage.settlement_storage import SettlementIntentStorageSupabase, get_settlement_storage
 from lynx.mcp.cell.vpm.payment_execute import SettlementIntent
 
 
@@ -64,7 +64,7 @@ def execution_storage() -> ExecutionStorageSupabase:
 @pytest.fixture
 def settlement_storage() -> SettlementIntentStorageSupabase:
     """Get Supabase settlement intent storage."""
-    storage = get_settlement_intent_storage()
+    storage = get_settlement_storage()
     if not isinstance(storage, SettlementIntentStorageSupabase):
         pytest.skip("Supabase storage not configured (using in-memory)")
     return storage

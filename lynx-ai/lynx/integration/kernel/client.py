@@ -30,10 +30,12 @@ class KernelAPI:
         self.api_url = api_url or os.getenv("KERNEL_API_URL")
         self.api_key = api_key or os.getenv("KERNEL_API_KEY")
         
+        # Allow initialization without URL/key if using lite mode
+        # The factory function will handle mode selection
         if not self.api_url:
-            raise ValueError("Kernel API URL not provided")
+            raise ValueError("Kernel API URL not provided. Use KernelLite or set KERNEL_MODE=lite for staging.")
         if not self.api_key:
-            raise ValueError("Kernel API key not provided")
+            raise ValueError("Kernel API key not provided. Use KernelLite or set KERNEL_MODE=lite for staging.")
         
         self.client = httpx.AsyncClient(
             base_url=self.api_url,

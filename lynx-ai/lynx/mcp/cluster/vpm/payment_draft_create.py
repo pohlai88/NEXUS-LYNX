@@ -6,7 +6,7 @@ Layer: cluster
 Risk: medium
 """
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 from lynx.core.registry import MCPTool
@@ -21,7 +21,29 @@ class VPMPaymentDraftInput(BaseModel):
     vendor_id: str = Field(description="Vendor ID")
     amount: float = Field(gt=0, description="Payment amount")
     currency: str = Field(default="USD", description="Currency code")
-    due_date: str = Field(description="Due date (ISO format)")
+    due_date: str = Field(description="Due date (ISO 8601 format)")
+    
+    @field_validator('due_date')
+    @classmethod
+    def validate_iso_date(cls, v: str) -> str:
+        """Validate that due_date is a valid ISO 8601 date string."""
+        if not v or not v.strip():
+            raise ValueError("due_date cannot be empty")
+        
+        # Try to parse as ISO 8601 date
+        try:
+            # Handle common ISO formats
+            if v.endswith('Z'):
+                datetime.fromisoformat(v.replace('Z', '+00:00'))
+            elif '+' in v or v.count('-') >= 3:  # Has timezone or is full ISO format
+                datetime.fromisoformat(v)
+            else:
+                # Try basic date format
+                datetime.fromisoformat(v)
+        except ValueError as e:
+            raise ValueError(f"Invalid ISO 8601 date format: {v}. Error: {str(e)}")
+        
+        return v
     invoice_refs: Optional[List[str]] = Field(
         default=None,
         description="Invoice references",
@@ -226,10 +248,10 @@ async def vpm_payment_draft_create_handler(
         ]) or "None"
         
         readiness_markdown = f"""
-- Vendor Active: {'✅' if execution_readiness.is_vendor_active else '❌'}
-- Bank Details: {'✅' if execution_readiness.bank_details_present else '❓' if execution_readiness.bank_details_present is None else '❌'}
-- Amount Within Threshold: {'✅' if execution_readiness.amount_within_threshold else '❌'}
-- Requires Manual Review: {'⚠️ Yes' if execution_readiness.requires_manual_review else '✅ No'}
+- Vendor Active: {'Yes' if execution_readiness.is_vendor_active else 'No'}
+- Bank Details: {'Yes' if execution_readiness.bank_details_present else 'Unknown' if execution_readiness.bank_details_present is None else 'No'}
+- Amount Within Threshold: {'Yes' if execution_readiness.amount_within_threshold else 'No'}
+- Requires Manual Review: {'Yes' if execution_readiness.requires_manual_review else 'No'}
 """
         
         preview_markdown = f"""# Payment Draft

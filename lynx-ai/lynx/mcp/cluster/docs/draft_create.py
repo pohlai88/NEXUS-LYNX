@@ -72,6 +72,9 @@ async def docs_draft_create_handler(
     
     Returns:
         DocsDraftOutput with draft information
+    
+    Raises:
+        ValueError: If validation fails or Kernel API unavailable
     """
     # Initialize Kernel API for this tenant (if available)
     kernel_api = None

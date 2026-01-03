@@ -40,6 +40,8 @@ ENV/
 # Secrets
 config/secrets.yaml
 config/*.secrets.yaml
+mcp_agent.secrets.yaml
+*.secrets.yaml
 
 # Logs
 logs/
